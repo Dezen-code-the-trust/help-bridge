@@ -4,11 +4,10 @@ import { helpSonicBridgeContract } from '@/contracts/HelpSonicBridge'
 import { deBridgeBaseGateContract } from "@/contracts/deBridgeBaseGate";
 import { deBridgeSonicGateContract } from "@/contracts/deBridgeSonicGate";
 import { base, sonic } from '@wagmi/core/chains'
+import { wagmiConfig } from '@/utils/wagmi.ts';
 import { parseEther } from 'viem'
 import {
   estimateFeesPerGas,
-  http,
-  createConfig,
   readContract,
   writeContract,
   getBalance,
@@ -16,79 +15,67 @@ import {
   waitForTransactionReceipt
 } from '@wagmi/core'
 
-const baseConfig = createConfig({
-  chains: [base],
-  transports: {
-    [base.id]: http()
-  },
-});
-
-const sonicConfig = createConfig({
-  chains: [sonic],
-  transports: {
-    [sonic.id]: http()
-  },
-});
-
 export const Bridge = {
   FIXED_GAS: 10000000,
 
   helpBalance: async (address) => {
-    return await calcBalance(baseConfig, helpContract, address);
+    return await calcBalance(base, helpContract, address);
   },
 
   sHelpBalance: async (address) => {
-    return await calcBalance(sonicConfig, sHelpContract, address);
+    return await calcBalance(sonic, sHelpContract, address);
   },
 
   helpFee: async (multiplier = 1) => {
-    return await calcFees(baseConfig, deBridgeBaseGateContract, multiplier);
+    return await calcFees(base, deBridgeBaseGateContract, multiplier);
   },
 
   sHelpFee: async (multiplier = 1) => {
-    return await calcFees(sonicConfig, deBridgeSonicGateContract, multiplier);
+    return await calcFees(sonic, deBridgeSonicGateContract, multiplier);
   },
 
   execute: async (symbol, address, qty, multiplier = 1) => {
     if (symbol === helpContract.symbol) {
-      await executeBridge(address, qty, multiplier, baseConfig, helpContract, helpSonicBridgeContract, deBridgeBaseGateContract, "lockAndSendWithPermit");
+      await executeBridge(address, qty, multiplier, base, helpContract, helpSonicBridgeContract, deBridgeBaseGateContract, "lockAndSendWithPermit");
 
     } else if (symbol === sHelpContract.symbol) {
-      await executeBridge(address, qty, multiplier, sonicConfig, sHelpContract, sHelpContract, deBridgeSonicGateContract, "burnAndSendWithPermit");
+      await executeBridge(address, qty, multiplier, sonic, sHelpContract, sHelpContract, deBridgeSonicGateContract, "burnAndSendWithPermit");
     }
   },
 }
 
-async function calcBalance(networkConfig, contract, address) {
-  return (await getBalance(networkConfig, {
+async function calcBalance(chain, contract, address) {
+  return (await getBalance(wagmiConfig, {
+    chainId: chain.id,
     token: contract.address,
     address: address
   }))?.value;
 }
 
-async function calcFees(networkConfig, contract, multiplier) {
+async function calcFees(chain, contract, multiplier) {
   const gas = BigInt(Bridge.FIXED_GAS * multiplier);
 
   let fixedFees = await readContract(
-    networkConfig,
+    wagmiConfig,
     {
+      chainId: chain.id,
       address: contract.address,
       abi: contract.abi,
       functionName: 'globalFixedNativeFee',
-      args: [],
+      args: []
     }
   );
 
-  const gasPrice = await estimateFeesPerGas(networkConfig)
+  const gasPrice = await estimateFeesPerGas(wagmiConfig, { chainId: chain.id });
   return fixedFees + (gas * gasPrice.maxFeePerGas);
 }
 
-async function executeBridge(address, qty, multiplier, networkConfig, tokenContract, bridgeContract, gateContract, contractMethod){
+async function executeBridge(address, qty, multiplier, chain, tokenContract, bridgeContract, gateContract, contractMethod){
   const amount = parseEther(`${qty}`);
-  const fees = await calcFees(networkConfig, gateContract, multiplier);
+  const fees = await calcFees(chain, gateContract, multiplier);
 
   const nonce = await readContract(
-    networkConfig,
+    wagmiConfig,
     {
       address: tokenContract.address,
       abi: tokenContract.abi,
@@ -108,12 +95,12 @@ async function executeBridge(address, qty, multiplier, networkConfig, tokenContr
   };
 
   const signature = await signTypedData(
-    networkConfig,
+    wagmiConfig,
     {
       domain: {
         name: tokenContract.name,
         version: "1",
-        chainId: networkConfig.chains[0].id,
+        chainId: chain.id,
         verifyingContract: tokenContract.address
       },
       types: {
@@ -135,8 +122,9 @@ async function executeBridge(address, qty, multiplier, networkConfig, tokenContr
   const v = Number.parseInt((signature as string).slice(130, 132), 16)
 
   const tx = await writeContract(
-    networkConfig,
+    wagmiConfig,
     {
+      chainId: chain.id,
       address: bridgeContract.address,
       abi: bridgeContract.abi,
       functionName: contractMethod,
@@ -145,7 +133,10 @@ async function executeBridge(address, qty, multiplier, networkConfig, tokenContr
     }
   );
 
-  const receipt = await waitForTransactionReceipt(networkConfig, { hash: tx });
+  const receipt = await waitForTransactionReceipt(wagmiConfig, {
+    chainId: chain.id,
+    hash: tx
+  });
 
   console.log('Status:', receipt.status === 'success' ? 'Success' : 'Fail');
 }

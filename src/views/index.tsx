@@ -10,7 +10,7 @@ export function Index() {
   const i18nPage = "pages.index";
   const { switchChain } = useSwitchChain()
 
-  const { address, isConnected, connector } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
 
   const [qty, setQty] = useState(parseInt(""));
   const [multiplier, setMultiplier] = useState(1);
@@ -40,8 +40,23 @@ export function Index() {
   }
 
   useEffect(() => {
-    switchChain({ chainId: reverse ? sonic.id : base.id });
+    if (isConnected) {
+      switchChain({chainId: reverse ? sonic.id : base.id});
+    } else {
+      setHelpToken(prev => ({ ...prev, balance: 0n }));
+      setShelpToken(prev => ({ ...prev, balance: 0n }));
+      setQty(parseInt(""));
+    }
   }, [isConnected]);
+
+  useEffect(() => {
+    if (chainId === base.id) {
+      setReverse(false);
+
+    } else if (chainId === sonic.id) {
+      setReverse(true);
+    }
+  }, [chainId]);
 
   useEffect(() => {
     (async () => {
@@ -68,6 +83,15 @@ export function Index() {
       })();
     }
   }, [address]);
+
+  useEffect(() => {
+    const balance = parseFloat(
+      formatEther(
+        getToken(0).balance
+      )
+    );
+    if (qty > balance) { setQty(balance); }
+  }, [reverse]);
 
   const handleMaxButton = () => {
     setQty(

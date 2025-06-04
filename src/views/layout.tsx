@@ -17,7 +17,7 @@ export function Layout({ action, children }) {
           <img src="/assets/images/pix/help-logo.svg" title={ t("general.help_bridge") } alt={ t("general.help_bridge") }/>
         </a>
 
-        <ConnectButton accountStatus="address" showBalance={false} />
+        <ConnectButton accountStatus="address" showBalance={false} chainStatus="none" />
       </header>
 
       <main id={action}>{ children }</main>
