@@ -1,0 +1,58 @@
+@use "vars" as *
+
+$base_dir: "/assets/fonts"
+$fonts: "Bayon-Regular", "OpenSans-Regular", "OpenSans-SemiBold", "MonaspaceNeonVar-Regular"
+@each $font in $fonts
+  @font-face
+    style: normal
+    weight: normal
+    font-family: $font
+    src: url("#{$base_dir}/#{$font}/#{$font}.eot")
+    src: url("#{$base_dir}/#{$font}/#{$font}.eot?#iefix") format("embedded-opentype"), url("#{$base_dir}/#{$font}/#{$font}.woff") format("woff"), url("#{$base_dir}/#{$font}/#{$font}.woff2") format("woff2"), url("#{$base_dir}/#{$font}/#{$font}.ttf") format("truetype"), url("#{$base_dir}/#{$font}/#{$font}.svg##{$font}") format("svg")
+
+html, input, textarea, button
+  font-weight: normal
+  font-family: $font-body !important
+
+html
+  color: $white
+  font-size: 62.5%
+
+  +mobile_devices
+    font-size: 42.5%
+
+body
+  +normal
+
+h1, .h1
+  +h1
+
+h2, .h2
+  +h2
+
+h3, .h3
+  +h3
+
+.featured-plus
+  +featured-plus
+
+.featured
+  +featured
+
+.normal-plus
+  +normal-plus
+
+.normal
+  +normal
+
+.small-plus
+  +small-plus
+
+.small
+  +small
+
+.mono
+  font-family: $font-monospace
+
+.bold
+  font-family: $font-featured

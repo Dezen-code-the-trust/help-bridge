@@ -1,0 +1,135 @@
+@use "lib/vars" as *
+@use "lib/fonts"
+@use "lib/grid"
+@use "lib/icons"
+@use "lib/loader"
+@use "lib/reset"
+
+@use "layout"
+
+@use "bridge"
+@use "legal"
+
+
+html
+  float: left
+  width: 100%
+  overflow-x: hidden
+  scroll-behavior: smooth
+
+body
+  float: left
+  width: 100%
+  background: $black
+
+  > div
+    float: left
+    width: 100%
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+
+main
+  float: left
+  width: 100%
+  margin-top: spacing(4)
+  margin-bottom: auto
+
+a
+  cursor: pointer
+  color: $gray-dark
+  +transition
+
+  &:hover
+    text-decoration: none
+    color: $white
+
+.button
+  position: relative
+  padding: spacing(1.25) spacing(1.25) spacing(1) spacing(1.25)
+  cursor: pointer
+  font-size: 1.6rem
+  line-height: 2.179rem
+  color: $white
+  background: $primary
+  font-family: $font-featured
+  float: left
+  text-align: center
+  border: 1px solid $primary !important
+  border-radius: $border-radius
+  text-decoration: none !important
+  +transition
+
+  &:before
+    padding-right: spacing()
+    text-decoration: none !important
+
+  &:hover, &:focus
+    +shadow(0, 0, spacing(), 0, $primary-dark)
+
+  &:active
+    background: $primary-dark
+    border-color: $primary-dark !important
+    color: $white
+
+  &.disabled, &[disabled]
+    background: $gray
+    border-color: $gray !important
+    cursor: no-drop
+    box-shadow: none
+
+  &.secondary
+    color: $primary
+    background: $white !important
+
+    &:hover, &:focus
+      border-color: $white !important
+
+    &:active
+      color: $primary-dark
+      border-color: $primary-dark !important
+
+    &.disabled, &[disabled]
+      color: $gray
+      border-color: $gray !important
+      background: $white !important
+
+  &.wallet
+    background: none
+    color: $primary
+
+    &:before
+      float: right
+      margin-left: spacing()
+      padding: 0
+      line-height: 2.2rem
+
+.etherscan
+  float: left
+  border: 1px solid $gray
+  border-radius: $border-radius
+  padding: spacing() spacing() spacing(.5)
+  background: $gray-light
+  margin-bottom: spacing()
+  font-family: $font-monospace
+
+  &:hover
+    color: $gray-dark
+    text-decoration: underline
+
+  &:before
+    float: right
+    margin-left: spacing(0.5)
+    margin-top: spacing(-.25)
+    text-decoration: none
+
+  &:focus
+    border: 1px solid $gray
+
+p.error
+  float: left
+  color: $error
+  text-align: center
+  margin: spacing(2) 0
+  +center-block-horizontally
+

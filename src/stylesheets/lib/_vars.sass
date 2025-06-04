@@ -1,0 +1,207 @@
+@use "sass:math"
+@use "sass:string"
+
+/* Colors
+$black: #1A1A1A
+$gray-dark: #5F5F5F
+$gray: #9E9E9E
+$gray-light: #E0E0E0
+$white: #F5F5F5
+
+$primary-dark: #240D38
+$primary: #431A74
+$primary-light: #D8BEEB
+
+$secondary-dark: #66620E
+$secondary: #FFE627
+$secondary-light: #FFF9BB
+
+$error-dark: #BC0202
+$error: #E85A5A
+$error-light: #F5CFCF
+
+/* Fonts
+$font-title: "Bayon-Regular", sans-serif
+$font-body: "OpenSans-Regular", sans-serif
+$font-featured: "OpenSans-SemiBold", sans-serif
+$font-monospace: "MonaspaceNeonVar-Regular", sans-serif
+
+$header-height: 62px
+$header-height-mobile: 50px
+
+/* Text styles
+=h1()
+  font-family: $font-title
+  font-weight: 400
+  font-size: 3.2rem
+  line-height: 3.8rem
+
+=h2()
+  font-family: $font-title
+  font-weight: 400
+  font-size: 2.6rem
+  line-height: 3.1rem
+
+=h3()
+  font-family: $font-title
+  font-weight: 400
+  font-size: 2.2rem
+  line-height: 2.6rem
+
+=featured-plus()
+  +featured($font-featured)
+
+=featured($font: $font-body)
+  font-family: $font
+  font-size: 1.8rem
+  line-height: 2.25rem
+
+=normal-plus()
+  +normal($font-featured)
+
+=normal($font: $font-body)
+  font-family: $font
+  font-size: 1.5rem
+  line-height: 1.875rem
+
+=small-plus()
+  +small($font-featured)
+
+=small($font: $font-body)
+  font-family: $font
+  font-size: 1.2rem
+  line-height: 1.5rem
+
+=label()
+  font-family: $font-featured
+  font-size: 1.5rem
+  line-height: 1.6rem
+
+
+/* Vars
+$pointer-border: 2px
+$border-radius: 6px
+
+$screen-xs: 480px
+$screen-xs-min: $screen-xs
+$screen-phone: $screen-xs-min
+
+$screen-sm: 768px
+$screen-sm-min: $screen-sm
+$screen-tablet: $screen-sm-min
+
+$screen-md: 992px
+$screen-md-min: $screen-md
+$screen-desktop: $screen-md-min
+
+$screen-lg: 1400px
+$screen-lg-min: $screen-lg
+$screen-lg-desktop: $screen-lg-min
+
+$screen-xl: 1920px
+$screen-xl-min: $screen-xl
+$screen-xl-desktop: $screen-xl-min
+
+$screen-xs-max: ($screen-sm-min - 1)
+$screen-sm-max: ($screen-md-min - 1)
+$screen-md-max: ($screen-lg-min - 1)
+$screen-lg-max: ($screen-xl-min - 1)
+
+$grid-columns: 12
+$grid-gutter-width: 30px
+$grid-gutter-width-2: math.div($grid-gutter-width, 2)
+
+$container-sm: $screen-sm - $grid-gutter-width
+$container-tablet: $container-sm
+
+$container-md: $screen-md - $grid-gutter-width
+$container-desktop: $container-md
+
+$container-lg: $screen-lg - $grid-gutter-width
+$container-large-desktop: $container-lg
+
+$spacing: 8px
+
+@function spacing($multiply: 1)
+  @return $spacing * $multiply
+
+
+/* Mixins
+=center-block()
+  position: relative
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+=center-block-horizontally()
+  position: relative
+  left: 50%
+  transform: translate(-50%, 0)
+
+=center-block-vertically()
+  position: relative
+  top: 50%
+  transform: translate(0, -50%)
+
+=transition($time: .125s, $prop: "all")
+  transition: string.unquote($prop) $time ease-in-out
+
+=shadow($h-shadow: 0, $v-shadow: 4px, $blur: 6px, $spread: 0, $color: rgba(0, 0, 0, 0.2), $important: "")
+  box-shadow: $h-shadow $v-shadow $blur $spread $color string.unquote($important)
+
+=gradient-primary()
+  background: linear-gradient(268.02deg, #00E184 0%, #0067FF 100%)
+
+=gradient-secondary()
+  background: linear-gradient(180deg, rgba(87, 222, 100, 0.3) -0.78%, rgba(0, 79, 8, 0) 99.22%)
+
+=responsive($type)
+  @if $type == extra_desktop
+    @media only screen and (min-width: $screen-xl-min)
+      @content
+  @if $type == big_desktop
+    @media only screen and (min-width: $screen-lg-min)
+      @content
+  @else if $type == desktop
+    @media only screen and (min-width: $screen-md-min) and (max-width: $screen-md-max)
+      @content
+  @else if $type == tablet
+    @media only screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+      @content
+  @else if $type == mobile
+    @media only screen and (max-width: $screen-xs-max)
+      @content
+  @else if $type == desktop_devices
+    @media only screen and (min-width: $screen-md-min)
+      @content
+  @else if $type == mobile_devices
+    @media only screen and (max-width: $screen-sm-max)
+      @content
+
+=extra_desktop
+  +responsive(extra_desktop)
+    @content
+
+=big_desktop
+  +responsive(big_desktop)
+    @content
+
+=desktop
+  +responsive(desktop)
+    @content
+
+=tablet
+  +responsive(tablet)
+    @content
+
+=mobile
+  +responsive(mobile)
+    @content
+
+=desktop_devices
+  +responsive(desktop_devices)
+    @content
+
+=mobile_devices
+  +responsive(mobile_devices)
+    @content

@@ -1,0 +1,40 @@
+@use "lib/vars" as *
+
+#index
+  .input-prefix
+    float: left
+    width: 100%
+
+
+    .input-header
+      float: left
+      width: 100%
+      display: flex
+      flex-direction: row-reverse
+      gap: spacing()
+      align-items: center
+
+      span
+        +small()
+
+      .button
+        padding: spacing(.5)
+
+    input
+      float: left
+      width: 100%
+      padding: spacing()
+      background: none
+      border: 1px solid $white
+      color: $white
+
+      &:disabled
+        cursor: not-allowed
+
+  .center
+    +center-block-horizontally
+    margin: spacing(4) 0
+
+  .fee
+    float: left
+    width: 100%
