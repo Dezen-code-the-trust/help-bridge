@@ -1,7 +1,7 @@
 @use "vars" as *
 
 $base_dir: "/assets/fonts"
-$fonts: "Bayon-Regular", "OpenSans-Regular", "OpenSans-SemiBold", "MonaspaceNeonVar-Regular"
+$fonts: "monumentextended-regular", "spacemono-regular"
 @each $font in $fonts
   @font-face
     style: normal
@@ -50,9 +50,6 @@ h3, .h3
 
 .small
   +small
-
-.mono
-  font-family: $font-monospace
 
 .bold
   font-family: $font-featured

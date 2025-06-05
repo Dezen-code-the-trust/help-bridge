@@ -5,24 +5,50 @@
   },
 
   "general": {
-    "help_bridge": "Help bridge"
+    "help_bridge": "Help bridge",
+    "connect_wallet": "Connect your wallet",
+    "ok": "ok",
+    "base_explorer_url": "https://basescan.org/address/",
+    "sonic_explorer_url": "https://explorer.soniclabs.com/address/"
   },
 
   "layout": {
-    "privacy_policy": "Privacy policy",
-    "privacy_policy_anchor": "privacy-policy",
-    "terms_use": "Terms of use",
-    "terms_use_anchor": "terms-of-use"
+    "footer": "© 2025 HELP VLM Research Foundation. All rights reserved."
   },
 
   "pages": {
     "index": {
       "bridge": {
+        "title": "Bridge your HELP",
+        "from_base": "From Base",
+        "from_sonic": "From Sonic",
+        "to_base": "To Base",
+        "to_sonic": "To Sonic",
         "balance": "Balance: %{balance} %{symbol}",
-        "max": "Max",
-        "fee": "Fee: %{fee} %{symbol}",
-        "reverse": "REVERSE",
-        "bridge": "BRIDGE"
+        "fee": "Estimated gas (%{speed}): %{fee} %{symbol}",
+        "bridge": "Bridge tokens",
+        "address": "Address: <a href=\"%{link}\" title=\"%{address}\" target=\"_blank\">%{address}</a>"
+      },
+      "gas": {
+        "title": "Gas speed",
+        "full": {
+          "1": "Standard (1x)",
+          "1.5": "Fast (1.5x)",
+          "2": "Priority (2x)"
+        },
+        "short": {
+          "1": "standard",
+          "1.5": "fast",
+          "2": "priority"
+        }
+      },
+      "texts": {
+        "text1": "1 HELP = 1 sHELP",
+        "text2": "This bridge works both ways:",
+        "li1": "Lock HELP on Base to mint sHELP on Sonic",
+        "li2": "Burn sHELP on Sonic to unlock HELP on Base",
+        "text3": "Supply is always 1:1 and fully backed.",
+        "text4": "Base and Sonic share the same address format, so your connected wallet address will be used on both chains."
       }
     },
     "not_found": {

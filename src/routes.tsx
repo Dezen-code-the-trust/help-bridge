@@ -3,12 +3,10 @@ import { LanguageWrapper } from "@/localization/i18n";
 import { Index } from "@/views/index";
 import { useEffect } from "react";
 
-import { Legal } from "@/views/legal";
 import { NotFound } from "@/views/not_found";
 
 export const ROUTES = {
   ROOT: '/',
-  LEGAL: '/legal',
 };
 
 export function getRoute(lang, route, params = {}, extra = "") {
@@ -47,7 +45,6 @@ export function Router() {
           <LanguageWrapper>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path={ROUTES.LEGAL} element={<Legal />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </LanguageWrapper>

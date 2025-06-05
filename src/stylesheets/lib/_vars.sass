@@ -1,52 +1,51 @@
 @use "sass:math"
 @use "sass:string"
 
+
 /* Colors
-$black: #1A1A1A
-$gray-dark: #5F5F5F
-$gray: #9E9E9E
-$gray-light: #E0E0E0
-$white: #F5F5F5
+$black: #0C0D16
+$gray-dark: #17191C
+$gray: #A6B7C4
+$gray-light: #F8F8F8
+$white: #FFFFFF
 
-$primary-dark: #240D38
-$primary: #431A74
-$primary-light: #D8BEEB
+$primary-dark: #021B02
+$primary: #113111
+$primary-light: #9FFA9F
 
-$secondary-dark: #66620E
-$secondary: #FFE627
-$secondary-light: #FFF9BB
+$secondary-dark: #9A2B0F
+$secondary: #EA4C23
+$secondary-light: #F39981
 
 $error-dark: #BC0202
 $error: #E85A5A
 $error-light: #F5CFCF
 
-/* Fonts
-$font-title: "Bayon-Regular", sans-serif
-$font-body: "OpenSans-Regular", sans-serif
-$font-featured: "OpenSans-SemiBold", sans-serif
-$font-monospace: "MonaspaceNeonVar-Regular", sans-serif
 
-$header-height: 62px
-$header-height-mobile: 50px
+/* Fonts
+$font-title: "monumentextended-regular", sans-serif
+$font-body: "spacemono-regular", sans-serif
+$font-featured: $font-body
+
 
 /* Text styles
 =h1()
   font-family: $font-title
   font-weight: 400
-  font-size: 3.2rem
-  line-height: 3.8rem
+  font-size: 2.8rem
+  line-height: 4.2rem
 
 =h2()
   font-family: $font-title
   font-weight: 400
-  font-size: 2.6rem
-  line-height: 3.1rem
+  font-size: 2.2rem
+  line-height: 3.6rem
 
 =h3()
   font-family: $font-title
   font-weight: 400
-  font-size: 2.2rem
-  line-height: 2.6rem
+  font-size: 1.6rem
+  line-height: 2.4rem
 
 =featured-plus()
   +featured($font-featured)
@@ -54,7 +53,7 @@ $header-height-mobile: 50px
 =featured($font: $font-body)
   font-family: $font
   font-size: 1.8rem
-  line-height: 2.25rem
+  line-height: 125%
 
 =normal-plus()
   +normal($font-featured)
@@ -62,7 +61,7 @@ $header-height-mobile: 50px
 =normal($font: $font-body)
   font-family: $font
   font-size: 1.5rem
-  line-height: 1.875rem
+  line-height: 125%
 
 =small-plus()
   +small($font-featured)
@@ -70,11 +69,12 @@ $header-height-mobile: 50px
 =small($font: $font-body)
   font-family: $font
   font-size: 1.2rem
-  line-height: 1.5rem
+  line-height: 125%
 
 =label()
-  font-family: $font-featured
-  font-size: 1.5rem
+  font-family: $font-body
+  font-weight: 400
+  font-size: 1.4rem
   line-height: 1.6rem
 
 

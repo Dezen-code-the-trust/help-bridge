@@ -6,9 +6,7 @@
 @use "lib/reset"
 
 @use "layout"
-
 @use "bridge"
-@use "legal"
 
 
 html
@@ -20,7 +18,11 @@ html
 body
   float: left
   width: 100%
-  background: $black
+  background: $gray-dark
+
+  &[data-scroll-locked]
+    height: 100vh
+    overflow: hidden
 
   > div
     float: left
@@ -46,17 +48,17 @@ a
 
 .button
   position: relative
-  padding: spacing(1.25) spacing(1.25) spacing(1) spacing(1.25)
+  padding: spacing(2.25) spacing(4) spacing(1.75) spacing(4)
   cursor: pointer
-  font-size: 1.6rem
-  line-height: 2.179rem
-  color: $white
+  font-size: 1.5rem
+  line-height: 125%
+  color: $primary-light
   background: $primary
-  font-family: $font-featured
+  font-family: $font-title
   float: left
   text-align: center
-  border: 1px solid $primary !important
-  border-radius: $border-radius
+  border: none
+  text-transform: uppercase !important
   text-decoration: none !important
   +transition
 
@@ -65,7 +67,8 @@ a
     text-decoration: none !important
 
   &:hover, &:focus
-    +shadow(0, 0, spacing(), 0, $primary-dark)
+    background: $black
+    color: $white
 
   &:active
     background: $primary-dark
@@ -75,6 +78,7 @@ a
   &.disabled, &[disabled]
     background: $gray
     border-color: $gray !important
+    color: $gray-dark !important
     cursor: no-drop
     box-shadow: none
 
@@ -93,38 +97,6 @@ a
       color: $gray
       border-color: $gray !important
       background: $white !important
-
-  &.wallet
-    background: none
-    color: $primary
-
-    &:before
-      float: right
-      margin-left: spacing()
-      padding: 0
-      line-height: 2.2rem
-
-.etherscan
-  float: left
-  border: 1px solid $gray
-  border-radius: $border-radius
-  padding: spacing() spacing() spacing(.5)
-  background: $gray-light
-  margin-bottom: spacing()
-  font-family: $font-monospace
-
-  &:hover
-    color: $gray-dark
-    text-decoration: underline
-
-  &:before
-    float: right
-    margin-left: spacing(0.5)
-    margin-top: spacing(-.25)
-    text-decoration: none
-
-  &:focus
-    border: 1px solid $gray
 
 p.error
   float: left
