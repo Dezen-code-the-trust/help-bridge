@@ -9,7 +9,7 @@ export const ROUTES = {
   ROOT: '/',
 };
 
-export function getRoute(lang, route, params = {}, extra = "") {
+export function getRoute(lang: string | undefined, route: string, params: object = {}, extra: string = "") {
   let url = `/#/${lang}${route}${extra}`;
   Object.entries(params).forEach(([key, value]) => {
     url = url.replaceAll(`:${key}`, value);
@@ -17,7 +17,7 @@ export function getRoute(lang, route, params = {}, extra = "") {
   return url;
 }
 
-export function getRouteNavigate(lang, route, params = {}, extra = "") {
+export function getRouteNavigate(lang: string | undefined, route: string, params: object = {}, extra: string = "") {
   return getRoute(lang, route, params, extra).replace("/#/", "/");
 }
 

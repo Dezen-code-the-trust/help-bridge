@@ -4,6 +4,15 @@ import path from 'path'
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
+  esbuild: {
+    target: 'esnext',
+    supported: {
+      'top-level-await': true
+    }
+  },
+  build: {
+    target: 'esnext'
+  },
   plugins: [
     react(),
     nodePolyfills({

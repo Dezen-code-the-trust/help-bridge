@@ -6,6 +6,8 @@ import { t } from "@/localization/i18n";
 import { Bridge } from "@/utils/bridge";
 import { formatEther } from 'viem'
 import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { TransfersLog } from "@/views/components/transfers_log.tsx";
+import { SettingsModal } from "@/views/components/settings_modal.tsx";
 
 
 export function Index() {
@@ -16,27 +18,31 @@ export function Index() {
   const { address, isConnected, chainId } = useAccount();
 
   const [settingsVisible, setSettingsVisible] = useState(false);
+
   const [qty, setQty] = useState(parseInt(""));
   const [multiplier, setMultiplier] = useState(1.5);
-  const [multiplierOption, setMultiplierOption] = useState('1.5');
   const [reverse, setReverse] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [refreshBalance, setRefreshBalance] = useState(0);
+  const [refreshTransfers, setRefreshTransfers] = useState(0);
 
   const [helpToken, setHelpToken] = useState({
-    symbol: "MON",
+    symbol: "HELP",
     balance: 0n,
     fee: 0n,
     networkSymbol: "ETH"
   });
 
   const [sHelpToken, setShelpToken] = useState({
-    symbol: "sMON",
+    symbol: "sHELP",
     balance: 0n,
     fee: 0n,
     networkSymbol: "S"
   });
 
-  const getToken = (position) => {
+  const getToken = (position: number) => {
     if (position === 0) {
       return reverse ? sHelpToken : helpToken;
 
@@ -48,6 +54,7 @@ export function Index() {
   useEffect(() => {
     if (isConnected) {
       switchChain({chainId: reverse ? sonic.id : base.id});
+
     } else {
       setHelpToken(prev => ({ ...prev, balance: 0n }));
       setShelpToken(prev => ({ ...prev, balance: 0n }));
@@ -87,8 +94,12 @@ export function Index() {
         const balance = await Bridge.sHelpBalance(address);
         setShelpToken(prev => ({ ...prev, balance: balance }));
       })();
+
+    } else {
+      setHelpToken(prev => ({ ...prev, balance: 0n }));
+      setShelpToken(prev => ({ ...prev, balance: 0n }));
     }
-  }, [address]);
+  }, [address, refreshBalance, refreshTransfers]);
 
   useEffect(() => {
     const balance = parseFloat(
@@ -99,12 +110,12 @@ export function Index() {
     if (qty > balance) { setQty(balance); }
   }, [reverse]);
 
-  const handleQtyChange = (e) => {
+  const handleQtyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
       setQty(parseInt(""));
 
     } else {
-      setQty(Math.min(e.target.value, parseFloat(formatEther(getToken(0).balance))));
+      setQty(Math.min(parseFloat(e.target.value), parseFloat(formatEther(getToken(0).balance))));
     }
   }
 
@@ -116,125 +127,123 @@ export function Index() {
   }
 
   const handleBridgeButton = async () => {
-    if (qty > 0) {
+    if (address && qty > 0) {
+      setErrorMessage("");
       setIsLoading(true);
       switchChain({ chainId: reverse ? sonic.id : base.id });
 
       try {
         await Bridge.execute(getToken(0).symbol, address, qty, multiplier);
+        setRefreshTransfers(refreshTransfers + 1);
 
-      } catch(e) {
+      } catch(e: any) {
         console.error(e);
+        setErrorMessage(e.details);
       }
 
       setIsLoading(false);
     }
   }
 
-  const openSettingsModal = () => {
-    setMultiplierOption(multiplier.toString());
-    setSettingsVisible(true);
-  }
-
-  const closeSettingsModal = (e) => {
-    if (e.target.id === "settings-modal") {
-      setSettingsVisible(false);
-    }
-  }
-
-  const handleSettingsSubmit = (e) => {
-    e.preventDefault();
-    setMultiplier(parseFloat(multiplierOption));
-    setSettingsVisible(false);
-  }
-
   return (
     <>
       <Layout action="index">
         <div className="container">
-          <form id="bridge" className="xs-12 sm-8 md-6 sm-offset-2 md-offset-3">
-            <div className="bridge-header">
-              <p className="title">{t(`${i18nPage}.bridge.title`)}</p>
-              <i className="button-settings icon-settings" onClick={openSettingsModal}></i>
-            </div>
-
-            <div className="input-prefix">
-              <i className={`icon-${reverse ? "sonic" : "base"}`}></i>
-
-              <div>
-                <div className="input">
-                  <label htmlFor="qty">{t(`${i18nPage}.bridge.from_${reverse ? "sonic" : "base"}`)}</label>
-                  <span className="prefix">{getToken(0).symbol}</span>
-                  <input id="qty"
-                         type="number"
-                         min="0"
-                         disabled={isLoading}
-                         placeholder="0.0"
-                         value={isNaN(qty) ? "" : qty}
-                         max={formatEther(getToken(0).balance)}
-                         onChange={handleQtyChange}/>
-                </div>
-
-                <div className="input-footer">
-                  <span>
-                    {t(`${i18nPage}.bridge.balance`, { balance: formatEther(getToken(0).balance),
-                                                       symbol: getToken(0).symbol })}
-                  </span>
-                </div>
+          <div className="xs-12 sm-10 md-8 sm-offset-1 md-offset-2">
+            <form id="bridge">
+              <div className="bridge-header">
+                <p className="title">{t(`${i18nPage}.bridge.title`)}</p>
+                <i className="button-settings icon-settings" onClick={() => setSettingsVisible(true)}></i>
               </div>
-            </div>
 
-            <div className="separator">
-              <span className="button icon-change" onClick={handleReverse}></span>
-            </div>
+              <div className="input-prefix">
+                <i className={`icon-${reverse ? "sonic" : "base"}`}></i>
 
-            <div className="input-prefix">
-              <i className={`icon-${reverse ? "base" : "sonic"}`}></i>
-
-              <div>
-                <div className="input">
-                  <label htmlFor="qty">{t(`${i18nPage}.bridge.to_${reverse ? "base" : "sonic"}`)}</label>
-                  <span className="prefix">{getToken(1).symbol}</span>
-                  <input type="text" disabled="disabled" placeholder="0.0" value={isNaN(qty) ? "" : qty}/>
-                </div>
-
-                <div className="input-footer">
-                  <span dangerouslySetInnerHTML={{ __html:
-                      t(`${i18nPage}.bridge.address`, {
-                        address: address,
-                        link: `${t(`general.${reverse ? "base" : "sonic"}_explorer_url`)}${address}`,
-                      })
-                  }}/>
-                </div>
-              </div>
-            </div>
-
-            {isConnected ? (
-              <>
-                {isLoading ? (
-                  <div className="loader-container">
-                    <div className="loader"></div>
+                <div>
+                  <div className="input">
+                    <label htmlFor="qty">{t(`${i18nPage}.bridge.from_${reverse ? "sonic" : "base"}`)}</label>
+                    <span className="prefix">{getToken(0).symbol}</span>
+                    <input id="qty"
+                           type="number"
+                           min="0"
+                           disabled={isLoading}
+                           placeholder="0.0"
+                           value={isNaN(qty) ? "" : qty}
+                           max={formatEther(getToken(0).balance)}
+                           onChange={handleQtyChange}/>
                   </div>
-                ) : (
-                  <>
-                    <span className={`bridge-tokens button${isNaN(qty) || qty === 0 ? " disabled" : ""}`}
-                          onClick={handleBridgeButton}>{t(`${i18nPage}.bridge.bridge`)}</span>
 
-                    <p className="fee">
-                      {t(`${i18nPage}.bridge.fee`, {
-                        speed: t(`${i18nPage}.gas.short.${multiplier}`),
-                        fee: formatEther(getToken(0).fee),
-                        symbol: getToken(0).networkSymbol
+                  <div className="input-footer">
+                    <span>
+                      {t(`${i18nPage}.bridge.balance`, {
+                        balance: formatEther(getToken(0).balance),
+                        symbol: getToken(0).symbol
                       })}
-                    </p>
-                  </>
-                )}
-              </>
-            ) : (
-              <span onClick={openConnectModal} className="connect-wallet button">
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="separator">
+                <span className="button icon-change" onClick={handleReverse}></span>
+              </div>
+
+              <div className="input-prefix">
+                <i className={`icon-${reverse ? "base" : "sonic"}`}></i>
+
+                <div>
+                  <div className="input">
+                    <label htmlFor="qty">{t(`${i18nPage}.bridge.to_${reverse ? "base" : "sonic"}`)}</label>
+                    <span className="prefix">{getToken(1).symbol}</span>
+                    <input type="text" disabled={true} placeholder="0.0" value={isNaN(qty) ? "" : qty}/>
+                  </div>
+
+                  <div className="input-footer">
+                    {address && (
+                      <span dangerouslySetInnerHTML={{
+                        __html:
+                          t(`${i18nPage}.bridge.address`, {
+                            address: address,
+                            link: `${t(`general.${reverse ? "base" : "sonic"}_explorer_url`)}${address}`,
+                          })
+                      }}/>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {isConnected ? (
+                <>
+                  {isLoading ? (
+                    <div className="loader-container">
+                      <div className="loader"></div>
+                    </div>
+
+                  ) : (
+                    <>
+                      <span className={`bridge-tokens button${isNaN(qty) || qty === 0 ? " disabled" : ""}`}
+                            onClick={handleBridgeButton}>{t(`${i18nPage}.bridge.bridge`)}</span>
+
+                      <p className="fee">
+                        {t(`${i18nPage}.bridge.fee`, {
+                          speed: t(`${i18nPage}.gas.${multiplier}`),
+                          fee: formatEther(getToken(0).fee),
+                          symbol: getToken(0).networkSymbol
+                        })}
+                      </p>
+
+                      {errorMessage != "" && (
+                        <p className="error">{errorMessage}</p>
+                      )}
+                    </>
+                  )}
+                </>
+              ) : (
+                <span onClick={openConnectModal} className="connect-wallet button">
                   {t("general.connect_wallet")}
                 </span>
-            )}
+              )}
+            </form>
 
             <div className="texts">
               <p>{t(`${i18nPage}.texts.text1`)}</p>
@@ -246,35 +255,14 @@ export function Index() {
               <p>{t(`${i18nPage}.texts.text3`)}</p>
               <p>{t(`${i18nPage}.texts.text4`)}</p>
             </div>
-          </form>
+
+            <TransfersLog address={address} refreshTransfers={refreshTransfers} setRefreshBalance={setRefreshBalance}/>
+          </div>
         </div>
       </Layout>
 
-      <div id="settings-modal" className={settingsVisible ? "visible" : ""} onClick={closeSettingsModal}>
-        <form className="content" onSubmit={handleSettingsSubmit}>
-          <p className="title">{t(`${i18nPage}.gas.title`)}</p>
-
-          <div className="input-radio">
-            <input id="gas-1" type="radio" name="gas" value="1" checked={multiplierOption === '1'}
-                   onChange={(e) => setMultiplierOption(e.target.value)}/>
-            <label htmlFor="gas-1">{t(`${i18nPage}.gas.full.1`)}</label>
-          </div>
-
-          <div className="input-radio">
-            <input id="gas-1.5" type="radio" name="gas" value="1.5" checked={multiplierOption === '1.5'}
-                   onChange={(e) => setMultiplierOption(e.target.value)}/>
-            <label htmlFor="gas-1.5">{t(`${i18nPage}.gas.full.1.5`)}</label>
-          </div>
-
-          <div className="input-radio">
-            <input id="gas-2" type="radio" name="gas" value="2" checked={multiplierOption === '2'}
-                   onChange={(e) => setMultiplierOption(e.target.value)}/>
-            <label htmlFor="gas-2">{t(`${i18nPage}.gas.full.2`)}</label>
-          </div>
-
-          <button type="submit" className="button">{t("general.ok")}</button>
-        </form>
-      </div>
+      <SettingsModal settingsVisible={settingsVisible} setSettingsVisible={setSettingsVisible}
+                     multiplier={multiplier} setMultiplier={setMultiplier}/>
     </>
   );
 }

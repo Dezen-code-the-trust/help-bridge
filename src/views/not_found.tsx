@@ -1,4 +1,3 @@
-import React from 'react';
 import { t } from '@/localization/i18n';
 import { Layout } from '@/views/layout';
 import { ROUTES } from "@/routes";

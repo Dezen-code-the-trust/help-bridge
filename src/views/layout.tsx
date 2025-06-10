@@ -6,7 +6,12 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import {useAccount} from "wagmi";
 
-export function Layout({ action, children }) {
+interface ViewProps {
+  action: string;
+  children: React.ReactNode;
+}
+
+export function Layout({ action, children }: ViewProps) {
   const { lang } = useParams();
   const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
@@ -24,7 +29,7 @@ export function Layout({ action, children }) {
         {isConnected ? (
           <ConnectButton showBalance={true} chainStatus="none"/>
         ) : (
-          <span onClick={openConnectModal} className="button center connect-wallet">
+          <span onClick={openConnectModal!} className="button center connect-wallet">
             {t(`general.connect_wallet`)}
           </span>
         )}

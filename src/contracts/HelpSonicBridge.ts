@@ -1,5 +1,6 @@
 export const helpSonicBridgeContract = {
   address: '0x8AB2Dc9b94FAd58B624eA45cBA70880b43E7899d',
+  symbol: 'HELP',
   abi: [
     {
       "inputs": [],

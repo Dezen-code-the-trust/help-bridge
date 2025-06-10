@@ -166,3 +166,47 @@
       float: left
       clear: both
       margin-top: spacing(2)
+
+#transfers-log
+  float: left
+  width: 100%
+  margin: spacing(8) 0
+
+  .title
+    font-size: 2rem
+    text-transform: uppercase
+    font-family: $font-body
+    cursor: pointer
+    +transition
+
+    i
+      margin-right: spacing()
+
+    &:hover
+      color: $primary-light
+
+  .transfers-list
+    float: left
+    width: 100%
+    overflow: hidden
+    +transition(.25s)
+
+    .header, .item
+      float: left
+      width: 100%
+      display: flex
+      gap: spacing()
+      margin-top: spacing(2)
+
+      *
+        flex: 1
+
+      a
+        color: $white
+        text-decoration: underline
+
+        &:hover
+          text-decoration: none
+
+    p
+      margin-top: spacing()

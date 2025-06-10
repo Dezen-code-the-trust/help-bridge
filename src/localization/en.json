@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "Help Bridge",
+    "title": "HELP Bridge",
     "description": ""
   },
 
   "general": {
-    "help_bridge": "Help bridge",
+    "help_bridge": "HELP bridge",
     "connect_wallet": "Connect your wallet",
     "ok": "ok",
     "base_explorer_url": "https://basescan.org/address/",
@@ -30,17 +30,9 @@
         "address": "Address: <a href=\"%{link}\" title=\"%{address}\" target=\"_blank\">%{address}</a>"
       },
       "gas": {
-        "title": "Gas speed",
-        "full": {
-          "1": "Standard (1x)",
-          "1.5": "Fast (1.5x)",
-          "2": "Priority (2x)"
-        },
-        "short": {
-          "1": "standard",
-          "1.5": "fast",
-          "2": "priority"
-        }
+        "1": "standard",
+        "1.5": "fast",
+        "2": "priority"
       },
       "texts": {
         "text1": "1 HELP = 1 sHELP",
@@ -55,32 +47,35 @@
       "title": "Page Not Found",
       "text": "We're sorry, the page you requested could not be found.",
       "button": "Go home"
+    }
+  },
+
+  "components": {
+    "settings_modal": {
+      "title": "Gas speed",
+      "1": "Standard (1x)",
+      "1.5": "Fast (1.5x)",
+      "2": "Priority (2x)"
     },
-    "legal": {
-      "block0": {
-        "id": "terms-of-use",
-        "title": "Terms of Use",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      },
-      "block1": {
-        "id": "privacy-policy",
-        "title": "Privacy Policy",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      },
-      "block2": {
-        "id": "block-2",
-        "title": "Block 2",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      },
-      "block3": {
-        "id": "block-3",
-        "title": "Block 3",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      },
-      "block4": {
-        "id": "block-4",
-        "title": "Block 4",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+    "transfers_log": {
+      "title": "Transfers log",
+      "empty": "There is nothing to show here.",
+      "transfer": "Transfer ID",
+      "amount": "Amount",
+      "direction": "Direction",
+      "status": "Status",
+      "pending": "⏳ Pending",
+      "confirmed": "✅ Confirmed",
+      "failed": "❌ Failed",
+      "view_explorer": "View on Explorer",
+      "help": "HELP",
+      "sHELP": "sHELP",
+      "8453": "Base",
+      "100000014": "Sonic",
+      "token": {
+        "8453": "HELP",
+        "100000014": "sHELP"
       }
     }
   }

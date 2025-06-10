@@ -5,7 +5,7 @@ $fonts: "monumentextended-regular", "spacemono-regular"
 @each $font in $fonts
   @font-face
     style: normal
-    weight: normal
+    font-weight: normal
     font-family: $font
     src: url("#{$base_dir}/#{$font}/#{$font}.eot")
     src: url("#{$base_dir}/#{$font}/#{$font}.eot?#iefix") format("embedded-opentype"), url("#{$base_dir}/#{$font}/#{$font}.woff") format("woff"), url("#{$base_dir}/#{$font}/#{$font}.woff2") format("woff2"), url("#{$base_dir}/#{$font}/#{$font}.ttf") format("truetype"), url("#{$base_dir}/#{$font}/#{$font}.svg##{$font}") format("svg")

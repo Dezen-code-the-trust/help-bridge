@@ -1,7 +1,7 @@
 export const sHelpContract = {
   address: '0xA268f947e6e61Cfb5eAD9EB369905e2fbB351338',
   name: 'Wrapped MON',
-  symbol: 'sMON',
+  symbol: 'sHELP',
   abi: [
     {
       "inputs": [
