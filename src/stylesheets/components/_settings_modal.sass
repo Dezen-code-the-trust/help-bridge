@@ -1,0 +1,51 @@
+@use "../lib/vars" as *
+
+#settings-modal
+  position: fixed
+  visibility: hidden
+  opacity: 0
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: rgba($black, 0.5)
+  z-index: 5
+  +transition(.25s)
+
+  &.visible
+    visibility: visible
+    opacity: 1
+
+  .content
+    float: left
+    +center-block
+    background: $primary-dark
+    padding: spacing(8)
+
+    +mobile
+      padding: spacing(6)
+
+    .title
+      font-weight: 700
+      font-size: 3.2rem
+      line-height: 125%
+      margin-bottom: spacing(4)
+
+    .input-radio
+      float: left
+      clear: both
+      margin-bottom: spacing(2)
+      cursor: pointer
+
+      input, label
+        cursor: pointer
+
+      input
+        float: left
+        margin-right: spacing()
+
+    .button
+      +center-block-horizontally
+      float: left
+      clear: both
+      margin-top: spacing(2)

@@ -1,6 +1,6 @@
 export const helpContract = {
-  address: '0xFFbbA011eCd9fcE0a3d858026c46dD156D9A6F3f',
-  name: 'MON',
+  address: '0x1c9f5e5B5c172955660c11ec0Df65B68eCB5fb69',
+  name: 'Help',
   symbol: 'HELP',
   abi: [
     {

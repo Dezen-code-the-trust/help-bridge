@@ -135,6 +135,7 @@ export function Index() {
       try {
         await Bridge.execute(getToken(0).symbol, address, qty, multiplier);
         setRefreshTransfers(refreshTransfers + 1);
+        setQty(parseInt(""));
 
       } catch(e: any) {
         console.error(e);
@@ -149,7 +150,8 @@ export function Index() {
     <>
       <Layout action="index">
         <div className="container">
-          <div className="xs-12 sm-10 md-8 sm-offset-1 md-offset-2">
+          <div className="row">
+            <div className="xs-12 sm-10 md-8 sm-offset-1 md-offset-2">
             <form id="bridge">
               <div className="bridge-header">
                 <p className="title">{t(`${i18nPage}.bridge.title`)}</p>
@@ -257,6 +259,7 @@ export function Index() {
             </div>
 
             <TransfersLog address={address} refreshTransfers={refreshTransfers} setRefreshBalance={setRefreshBalance}/>
+          </div>
           </div>
         </div>
       </Layout>

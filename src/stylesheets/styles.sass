@@ -7,6 +7,8 @@
 
 @use "layout"
 @use "bridge"
+@use "components/settings_modal"
+@use "components/transfers_logs"
 
 
 html
@@ -97,6 +99,9 @@ a
       color: $gray
       border-color: $gray !important
       background: $white !important
+
+  +mobile
+    padding: spacing(1.5) !important
 
 p.error
   float: left

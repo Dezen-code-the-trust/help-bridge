@@ -1,0 +1,58 @@
+@use "../lib/vars" as *
+
+#transfers-log
+  float: left
+  width: 100%
+  margin: spacing(8) 0
+
+  +mobile
+    margin: spacing(6) 0
+
+  .title
+    float: left
+    clear: both
+    font-size: 2rem
+    text-transform: uppercase
+    font-family: $font-body
+    cursor: pointer
+    +transition
+
+    i
+      margin-right: spacing()
+
+    &:hover
+      color: $primary-light
+
+  .transfers-list
+    float: left
+    width: 100%
+    overflow: hidden
+    +transition(.25s)
+
+    .header, .item
+      float: left
+      width: 100%
+      display: flex
+      gap: spacing()
+      margin-top: spacing(2)
+      align-items: center
+
+      *
+        flex: 1
+
+      a
+        color: $white
+        text-decoration: underline
+
+        &:hover
+          text-decoration: none
+
+      +mobile
+        .amount
+          flex: 0.75
+
+        .transfer
+          display: none
+
+    p
+      margin-top: spacing()

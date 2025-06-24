@@ -1,6 +1,5 @@
 export const helpSonicBridgeContract = {
-  address: '0x8AB2Dc9b94FAd58B624eA45cBA70880b43E7899d',
-  symbol: 'HELP',
+  address: '0x51aCE6e36E7CE71dB4Bc3589f1eb05e8F6479e1b',
   abi: [
     {
       "inputs": [],
@@ -50,7 +49,7 @@ export const helpSonicBridgeContract = {
         {
           "indexed": false,
           "internalType": "address",
-          "name": "monToken",
+          "name": "helpToken",
           "type": "address"
         },
         {
@@ -97,7 +96,7 @@ export const helpSonicBridgeContract = {
           "type": "uint256"
         }
       ],
-      "name": "MonLocked",
+      "name": "HelpLocked",
       "type": "event"
     },
     {
@@ -116,7 +115,7 @@ export const helpSonicBridgeContract = {
           "type": "uint256"
         }
       ],
-      "name": "MonReleased",
+      "name": "HelpReleased",
       "type": "event"
     },
     {
@@ -211,7 +210,7 @@ export const helpSonicBridgeContract = {
       "inputs": [
         {
           "internalType": "address",
-          "name": "_monToken",
+          "name": "_helpTokenAddress",
           "type": "address"
         },
         {
@@ -226,7 +225,7 @@ export const helpSonicBridgeContract = {
         },
         {
           "internalType": "address",
-          "name": "_sMonAddress",
+          "name": "_sHelpAddress",
           "type": "address"
         }
       ],
@@ -310,6 +309,19 @@ export const helpSonicBridgeContract = {
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "helpToken",
+      "outputs": [
+        {
+          "internalType": "contract ERC20Permit",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "uint256",
@@ -360,19 +372,6 @@ export const helpSonicBridgeContract = {
       "name": "lockContract",
       "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "monToken",
-      "outputs": [
-        {
-          "internalType": "contract ERC20Permit",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -431,7 +430,7 @@ export const helpSonicBridgeContract = {
     },
     {
       "inputs": [],
-      "name": "sMonAddress",
+      "name": "sHelpAddress",
       "outputs": [
         {
           "internalType": "address",

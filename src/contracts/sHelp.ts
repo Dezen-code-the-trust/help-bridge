@@ -1,6 +1,6 @@
 export const sHelpContract = {
   address: '0xA268f947e6e61Cfb5eAD9EB369905e2fbB351338',
-  name: 'Wrapped MON',
+  name: 'Wrapped HELP',
   symbol: 'sHELP',
   abi: [
     {
@@ -17,7 +17,7 @@ export const sHelpContract = {
         },
         {
           "internalType": "address",
-          "name": "_monSonicBridgeAddress",
+          "name": "_helpSonicBridgeAddress",
           "type": "address"
         }
       ],
@@ -273,7 +273,7 @@ export const sHelpContract = {
           "type": "uint256"
         }
       ],
-      "name": "sMonBurned",
+      "name": "sHelpBurned",
       "type": "event"
     },
     {
@@ -292,7 +292,7 @@ export const sHelpContract = {
           "type": "uint256"
         }
       ],
-      "name": "sMonMinted",
+      "name": "sHelpMinted",
       "type": "event"
     },
     {
@@ -517,6 +517,19 @@ export const sHelpContract = {
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "helpSonicBridgeAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -532,19 +545,6 @@ export const sHelpContract = {
       "name": "mint",
       "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "monSonicBridgeAddress",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
       "type": "function"
     },
     {
