@@ -1,54 +1,59 @@
-# React + TypeScript + Vite
+# HELP Bridge UI (Base ↔ Sonic)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React interface for bridging **HELP** (on Base) ↔ **sHELP** (on Sonic) via deBridge Messaging.
 
-Currently, two official plugins are available:
+## Quick Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Network  | Address | 
+| ---------  | --------------------------------------------  |
+| **Base**   | [`0x51aCE6e36E7CE71dB4Bc3589f1eb05e8F6479e1b`](https://basescan.org/address/0x51aCE6e36E7CE71dB4Bc3589f1eb05e8F6479e1b)  |
+| **Sonic**  | [`0x200175855125d7C075FD0527e65081693ce7a053`](https://sonicscan.org/address/0x200175855125d7C075FD0527e65081693ce7a053) 
 
-## Expanding the ESLint configuration
+## Deployment and Access
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This bridge's official interface is accessible at:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+* [https://bridge.helpverse.ai](https://bridge.helpverse.ai)
+
+The UI lets anyone lock HELP on Base, mint sHELP on Sonic (and vice‑versa).
+If you prefer to run the UI locally—e.g., for audits, custom front‑end tweaks, or offline signing—follow the steps below.
+
+## Running the UI Locally
+
+### Requirements
+
+* [Node.js v18+](https://nodejs.org/)
+* [npm](https://www.npmjs.com/)
+* A Web3 wallet (MetaMask, Rabby, etc.) with **Base** and **Sonic** networks added
+
+### Installation
+
+```bash
+git clone https://github.com/Dezen-code-the-trust/help-sonic-bridge.git
+cd help-sonic-bridge
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Start the UI locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run dev
 ```
+
+The app opens at [http://localhost:3000](http://localhost:3000).
+Connect your wallet, switch to Base or Sonic as required, and bridge tokens exactly as on the public site.
+
+## Important Notes
+
+* **Fees:** Each bridge operation incurs deBridge protocol fees plus gas on the origin chain (≈ \$2–3 at typical network conditions).
+* **Same wallet, both networks:** Base and Sonic share the same EVM address format; your connected address is used on both sides automatically.
+* **Mainnet only:** deBridge contracts are not deployed to Sonic testnet, so all tests run on mainnet. Consider using small amounts first.
+
+## Technical References
+
+* [deBridge Docs](https://docs.debridge.finance/)
+* [Base Network](https://base.org/)
+* [Sonic Labs](https://www.soniclabs.com/)
+* [React Documentation](https://react.dev/)
+
+For further support, open an issue in this repo or join [our Telegram community](https://t.me/helpofficialcommunity).
