@@ -48,6 +48,5 @@ jobs:
             CID=$(ipfs-cluster-ctl add -Q -r --cid-version 1 --hidden /tmp/deploy/dist)
             echo "CID=$CID"
             rm -rf /tmp/deploy
-            ipfs name publish --key=privx /ipfs/$CID
             sudo sed -i "s/\(proxy_set_header Host \).*\;/\1$CID.ipfs.localhost;/" /etc/nginx/sites-available/bridge.helpverse.ai.conf
             sudo systemctl reload nginx
