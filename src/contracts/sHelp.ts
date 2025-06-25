@@ -1,5 +1,5 @@
 export const sHelpContract = {
-  address: '0xA268f947e6e61Cfb5eAD9EB369905e2fbB351338',
+  address: '0x200175855125d7C075FD0527e65081693ce7a053',
   name: 'Wrapped HELP',
   symbol: 'sHELP',
   abi: [
