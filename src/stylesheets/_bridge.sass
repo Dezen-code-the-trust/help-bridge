@@ -42,19 +42,30 @@
 
     .input
       position: relative
+      float: left
+      width: 100%
 
       .prefix
         position: absolute
+        right: spacing()
+        bottom: spacing(1.5)
         color: $black
+
+        +mobile
+          bottom: spacing(2)
 
       input
         float: left
         width: 100%
         padding: spacing(1.5)
+        padding-right: spacing(7)
         background: $white
         border: none
         border-radius: $border-radius
         margin: spacing(.5) 0
+
+        +mobile
+          padding-right: spacing(5)
 
         &:disabled
           cursor: not-allowed
@@ -120,6 +131,13 @@
     +mobile
       margin-top: spacing(6)
 
+    a
+      color: $white
+      text-decoration: underline
+
+      &:hover
+        text-decoration: none
+
     p, ul
       float: left
       width: 100%
@@ -127,7 +145,7 @@
       &:not(:last-child)
         margin-bottom: spacing(.5)
 
-      &:last-child
+      &:nth-child(5), &:last-child
         margin-top: spacing(4)
 
     ul

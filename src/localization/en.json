@@ -40,7 +40,8 @@
         "li1": "Lock HELP on Base to mint sHELP on Sonic",
         "li2": "Burn sHELP on Sonic to unlock HELP on Base",
         "text3": "Supply is always 1:1 and fully backed.",
-        "text4": "Base and Sonic share the same address format, so your connected wallet address will be used on both chains."
+        "text4": "Can’t see your sHELP? Add it manually: <a href=\"https://sonicscan.org/address/0x200175855125d7C075FD0527e65081693ce7a053\" target=\"_blank\" title=\"sHELP contract\">0x200175855125d7C075FD0527e65081693ce7a053</a>",
+        "text5": "Base and Sonic share the same address format, so your connected wallet address will be used on both chains."
       }
     },
     "not_found": {

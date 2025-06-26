@@ -162,8 +162,8 @@ export function Index() {
                 <i className={`icon-${reverse ? "sonic" : "base"}`}></i>
 
                 <div>
+                  <label htmlFor="qty">{t(`${i18nPage}.bridge.from_${reverse ? "sonic" : "base"}`)}</label>
                   <div className="input">
-                    <label htmlFor="qty">{t(`${i18nPage}.bridge.from_${reverse ? "sonic" : "base"}`)}</label>
                     <span className="prefix">{getToken(0).symbol}</span>
                     <input id="qty"
                            type="number"
@@ -194,8 +194,8 @@ export function Index() {
                 <i className={`icon-${reverse ? "base" : "sonic"}`}></i>
 
                 <div>
+                  <label htmlFor="qty">{t(`${i18nPage}.bridge.to_${reverse ? "base" : "sonic"}`)}</label>
                   <div className="input">
-                    <label htmlFor="qty">{t(`${i18nPage}.bridge.to_${reverse ? "base" : "sonic"}`)}</label>
                     <span className="prefix">{getToken(1).symbol}</span>
                     <input type="text" disabled={true} placeholder="0.0" value={isNaN(qty) ? "" : qty}/>
                   </div>
@@ -247,25 +247,26 @@ export function Index() {
               )}
             </form>
 
-            <div className="texts">
-              <p>{t(`${i18nPage}.texts.text1`)}</p>
-              <p>{t(`${i18nPage}.texts.text2`)}</p>
-              <ul>
-                <li>{t(`${i18nPage}.texts.li1`)}</li>
-                <li>{t(`${i18nPage}.texts.li2`)}</li>
-              </ul>
-              <p>{t(`${i18nPage}.texts.text3`)}</p>
-              <p>{t(`${i18nPage}.texts.text4`)}</p>
+              <div className="texts">
+                <p>{t(`${i18nPage}.texts.text1`)}</p>
+                <p>{t(`${i18nPage}.texts.text2`)}</p>
+                <ul>
+                  <li>{t(`${i18nPage}.texts.li1`)}</li>
+                  <li>{t(`${i18nPage}.texts.li2`)}</li>
+                </ul>
+                <p>{t(`${i18nPage}.texts.text3`)}</p>
+                <p dangerouslySetInnerHTML={{ __html: t(`${i18nPage}.texts.text4`) }}/>
+                <p>{t(`${i18nPage}.texts.text5`)}</p>
             </div>
 
             <TransfersLog address={address} refreshTransfers={refreshTransfers} setRefreshBalance={setRefreshBalance}/>
           </div>
-          </div>
         </div>
-      </Layout>
+      </div>
+    </Layout>
 
-      <SettingsModal settingsVisible={settingsVisible} setSettingsVisible={setSettingsVisible}
-                     multiplier={multiplier} setMultiplier={setMultiplier}/>
+  <SettingsModal settingsVisible={settingsVisible} setSettingsVisible={setSettingsVisible}
+                 multiplier={multiplier} setMultiplier={setMultiplier}/>
     </>
   );
 }
