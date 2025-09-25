@@ -39,11 +39,16 @@ jobs:
 
       - name: Add build to IPFS1 and expose CID as output, then remove the build
         id: ipfs_add
-        run: |
-          CID=$(ssh -i <(echo "${{ secrets.IPFS_SSH_PRIVATE_KEY }}") -o StrictHostKeyChecking=no ${{ secrets.IPFS_SSH_USER }}@${{ secrets.IPFS_SSH_HOST }} \
-            "ipfs-cluster-ctl add -Q -r --cid-version 1 --hidden /tmp/deploy/dist && rm -rf /tmp/deploy")
-          echo "cid=$CID" >> $GITHUB_OUTPUT
-          echo "Generated CID: $CID"
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.IPFS_SSH_HOST }}:22
+          username: ${{ secrets.IPFS_SSH_USER }}
+          key: ${{ secrets.IPFS_SSH_PRIVATE_KEY }}
+          script: |
+            CID=$(ipfs-cluster-ctl add -Q -r --cid-version 1 --hidden /tmp/deploy/dist)
+            rm -rf /tmp/deploy
+            echo "cid=$CID" >> $GITHUB_OUTPUT
+            echo "Generated CID: $CID"
 
       - name: Update Nginx in IPFS1
         uses: appleboy/ssh-action@v1.0.0
